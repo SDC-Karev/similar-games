@@ -41,7 +41,7 @@ app.get('/api/getGamesBySeries/:seriesID', cors(corsOptions), function(req, res)
   {
     if (error)
     {
-      console.log('Get request failed')
+      console.log('Get request failed, get games by series')
       res.sendStatus(500).end();
     } else {
       res.json(result).end();
@@ -62,7 +62,7 @@ app.get('/api/getGamesByTags/:gameID/:tagString', cors(corsOptions), function(re
   {
     if (error)
     {
-      console.log('Get request failed')
+      console.log('Get request failed, get games by tags', error)
       res.sendStatus(500).end();
     } else {
       res.json(result).end();
@@ -71,7 +71,55 @@ app.get('/api/getGamesByTags/:gameID/:tagString', cors(corsOptions), function(re
   });
 });
 
+app.post('/api/relatedGames', cors(corsOptions), function(req, res) {
+	var r = req.body;
+	var newGame = {
+		name: r.gameName,
+		price: r.gamePrice,
+		sale: r.gameSale,
+		release: r.date,
+		reviews: r.reviewNum,
+		rating: r.avgReview,
+		series: r.gameSeries,
+		imagea: r.image1,
+		imageb: r.image2,
+		imagec: r.image3,
+		imaged: r.image4,
+		tags: r.gameTags
+	}
+	db.seedIntoDatabase(newGame, function(error, result) {
+		if (error) {
+			res.sendStatus(500);
+		} else {
+			res.sendStatus(201)
+		}
+	})
+});
 
+app.put('/api/relatedGames', cors(corsOptions), function (req, res) {
+	let id = req.body.id;
+	let newGame = req.body.game;
+	db.updateGame(id, newGame, function (error, results) {
+		if (error) {
+			console.log('error in put', error);
+			res.sendStatus(500);
+		} else {
+			res.sendStatus(201);
+		}
+	});
+});
+
+app.delete('/api/relatedGames', cors(corsOptions), function(req, res) {
+	let id = req.body.id;
+	db.deleteGame(id, function (error, results) {
+		if (error) {
+			console.log('error in delete request', error);
+			res.sendStatus(500);
+		} else {
+			res.sendStatus(200);
+		}
+	});
+});
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);

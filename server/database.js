@@ -92,11 +92,42 @@ const seedIntoDatabase = (function(data, callback) {
   })
 });
 
+const updateGame = (id, game, callback) => {
+	let sql = `UPDATE games
+	SET
+	name = "${game.name}",
+	price = "${game.price}",
+	sale_percent = "${game.sale}",
+	seriesID = "${game.seriesID}",
+	releasedt = "${game.release}",
+	reviews = "${game.reviews}",
+	average_review = "${game.average_review}"
+	WHERE id = "${id}"`;
+	connection.query(sql, function(error, results) {
+		if (error) {
+			callback(error);
+		} else {
+			callback(null, results);
+		}
+	});
+}
+
+const deleteGame = (id, callback) => {
+	let sql = `DELETE FROM games WHERE id = "${id}"`;
+	connection.query(sql, function(error, results) {
+		if (error) {
+			callback(error);
+		} else {
+			callback(null, results);
+		}
+	})
+}
 
 module.exports = {
   getGamesBySeries,
   getGamesByTags,
   seedIntoDatabase,
-  getGameByID
-
+  getGameByID,
+  updateGame,
+  deleteGame
 }
