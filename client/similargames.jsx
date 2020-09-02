@@ -19,29 +19,75 @@ class SimilarGames extends React.Component  {
     super(props)
 
     this.state = {
+      gameID: 1,
       currentGame: [
-        {id: 1,
-        name: "Voom Voom Motorcycle",
-        price: 95,
-        sale_percent: 0.25,
-        series: "Product Creative Assistant",
-        seriesID: 1,
-        releasedt: "2020-02-14",
-        reviews: 143,
-        average_review: 4.5,
-        tags: "auxiliary, wireless , open-source, solid state"
+        {
+          id: 1,
+          name: "magnam quis et",
+          series: "quidem fuga blanditiis",
+          price: 60.41999816894531,
+          sale: 0.009999999776482582,
+          release: "2020-01-11",
+          reviews: 312,
+          rating: 0.30000001192092896,
+          imagea: 54,
+          imageb: 438,
+          imagec: 691,
+          imaged: 625,
+          tags: "party"
       }
-      ]
-
+      ],
+      withTags: [],
+      inSeries: []
     }
   }
 
+  setCurrentGameId() {
+    const idPath = window.location.pathname;
+    const urlID = idPath.match(/\d+/);
+    let newID = urlID[0];
+    newID = Number.parseInt(newID, 10);
+    this.setState({ gameID: newID });
+    console.log(newID);
+  }
+
   componentDidMount() {
-    axios.get('/api/getGameByID/' + this.props.gameid)
+    this.setCurrentGameId();
+    axios.get('/api/getGameByID/' + this.state.gameID)
     .then(result =>
       {
         {console.log(result.data)}
         this.setState({currentGame: result.data});
+        this.queryTags();
+        this.querySeries();
+      })
+      .catch(function(error)
+      {
+        console.log(error);
+        console.log('Axios request fail');
+        return Promise.reject(error);
+      })
+  }
+
+  queryTags() {
+    axios.get('/api/getGamesByTags/' + this.state.gameID + '/' + this.state.currentGame[0].tags)
+    .then(result =>
+      {
+        this.setState({withTags: result.data});
+      })
+      .catch(function(error)
+      {
+        console.log(error);
+        console.log('Axios request fail');
+        return Promise.reject(error);
+      })
+  }
+
+  querySeries() {
+    axios.get('/api/getGamesBySeries/' + this.state.gameID + '/' + this.state.currentGame[0].series)
+    .then(result =>
+      {
+        this.setState({inSeries: result.data});
       })
       .catch(function(error)
       {
@@ -71,7 +117,7 @@ class SimilarGames extends React.Component  {
         <div style={{height: '1px', background: 'linear-gradient(to right, rgba(58,109,138,255), rgba(58,109,138,0))'}}>
           </div>
         <div>
-          {(this.state.currentGame[0].seriesID) ? <SeriesGames seriesID={this.state.currentGame[0].seriesID} series={this.state.currentGame[0].series} /> : null} <p></p>
+          <SeriesGames series={this.state.inSeries} /> <p></p>
         </div>
         <Flexbox flexDirection="row" justifyContent="space-between" margin="50px 5px 0 0">
           <h2 style={{fontSize: "13px" }}>{this.state.currentGame[0] ? 'MORE LIKE THIS' : ''}</h2>
@@ -80,7 +126,7 @@ class SimilarGames extends React.Component  {
         <div style={{height: '1px', background: 'linear-gradient(to right, rgba(58,109,138,255), rgba(58,109,138,0))'}}>
           </div>
         <div>
-          <TagGames tags={this.state.currentGame[0].tags} gameid={this.state.currentGame[0].id}/> <p></p>
+          <TagGames tagGames={this.state.withTags} /> <p></p>
         </div>
         </Flexbox>
 

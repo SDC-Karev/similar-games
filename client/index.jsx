@@ -7,7 +7,7 @@ function SimilarGamesApp() {
   return (
     <React.Fragment>
     <GlobalStyle />
-    <SimilarGames  gameid={5}/>
+    <SimilarGames />
   </React.Fragment>
   )
 }
