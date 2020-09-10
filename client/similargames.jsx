@@ -57,9 +57,12 @@ class SimilarGames extends React.Component  {
     .then(result =>
       {
         {console.log(result.data)}
-        this.setState({currentGame: result.data});
-        this.queryTags();
-        this.querySeries();
+        this.setState({currentGame: result.data.game,
+                      withTags: result.data.tagGames,
+                      inSeries: result.data.seriesGames
+                    });
+        // this.queryTags();
+        // this.querySeries();
       })
       .catch(function(error)
       {

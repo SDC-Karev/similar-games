@@ -34,7 +34,7 @@ for (var k = 0; k < seriesNum; k++) {
 
 function write(callback) {
     let notFull = true;
-	while(i < 10000000 && notFull) {
+	while(i < 50000000 && notFull) {
 		i++;
 		if (i % 500000 === 0) { console.log(i) }
 		let id = i;
@@ -56,14 +56,14 @@ function write(callback) {
 		let tags = tagArr[Math.floor(Math.random() * 7)];
 		let newGame = `${id},${name},${gameSeries},${price},${sale},${release},${reviews},${rating},${imagea},${imageb},${imagec},${imaged},${tags}\n`
 		
-		if (i === 10000000) {
+		if (i === 50000000) {
 			writeGames.write(newGame, 'utf8', callback);
 		} else {
 			notFull = writeGames.write(newGame, 'utf8');
 			
 		}
 	}
-	if (i < 10000000) {
+	if (i < 50000000) {
 		writeGames.once('drain', write);
 	}
 }
