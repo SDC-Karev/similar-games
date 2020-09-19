@@ -3,8 +3,11 @@
 Contains a React module with components for displaying a games related to the selected game.
 
 ## Related Projects
-  
-  - 
+
+- https://github.com/SDC-Karev/media-window
+- https://github.com/SDC-Karev/purchase-options-service
+- https://github.com/SDC-Karev/reviews
+
 ## Table of Contents
 
 1. [Requirements](#requirements)
