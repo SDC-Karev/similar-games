@@ -37,6 +37,10 @@ Build the bundle.js
 ```
 npm run build
 ```
+Build the bundle.js in development
+```
+npm run build:dev
+```
 Seed the database with dummy data
 ```
 npm run seed
