@@ -8,7 +8,7 @@
     "build": "webpack --config webpack.prod.js",
     "start": "node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed": "node server/seed.js"
+    "seed": "node server/dataGen.js"
   },
   "resolutions": {
     "styled-components": "^5"
