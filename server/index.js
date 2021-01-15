@@ -40,7 +40,6 @@ app.get('/api/getGameByID/:gameID', cors(corsOptions), function(req, res) {
             obj.media = `https://sdcimages.s3-us-west-1.amazonaws.com/samplePics/image${obj.imagea}.jpg`;
           }
           resultObj.tagGames = tagResult.rows;
-          console.l
           cdb.getGameBySeries(resultObj.game[0].series, gameID, (seriesErrors, seriesResults) => {
             if (seriesErrors) {
               console.log('get req failed series', seriesErrors);
