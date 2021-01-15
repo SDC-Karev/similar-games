@@ -4,19 +4,19 @@ const fs = require('fs');
 const createCsvStringifier = require('csv-writer').createObjectCsvStringifier;
 const csvStringifier = createCsvStringifier({
     header: [
-		{id: 'id', title: 'id'},
-		{id: 'name', title: 'name'},
-		{id: 'series', title: 'series'},
+	{id: 'id', title: 'id'},
+	{id: 'name', title: 'name'},
+	{id: 'series', title: 'series'},
         {id: 'price', title: 'price'},
         {id: 'sale', title: 'sale'},
-	    {id: 'release', title:'release'},
-	    {id: 'reviews', title: 'reviews'},
-	    {id: 'rating', title: 'rating'},
-	    {id: 'imagea', title: 'imagea'},
-	    {id: 'imageb', title: 'imageb'},
-	    {id: 'imagec', title: 'imagec'},
-	    {id: 'imaged', title: 'imaged'},
-	    {id: 'tags', title: 'tags'}
+	{id: 'release', title:'release'},
+	{id: 'reviews', title: 'reviews'},
+	{id: 'rating', title: 'rating'},
+	{id: 'imagea', title: 'imagea'},
+	{id: 'imageb', title: 'imageb'},
+	{id: 'imagec', title: 'imagec'},
+	{id: 'imaged', title: 'imaged'},
+	{id: 'tags', title: 'tags'}
 	
     ]
 });
